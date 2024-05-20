@@ -3,45 +3,33 @@ package ar.edu.unlp.info.oo2.facturacion_llamadas;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cliente {
-	public List<Llamada> llamadas = new ArrayList<Llamada>();
-	private String tipo;
+public abstract  class Cliente {
+	private List<Llamada> llamadas; // esto es public
 	private String nombre;
 	private String numeroTelefono;
-	private String cuit;
-	private String dni;
 	// NO TIENE CONSTRUCTOR, clase anemica mal olor
-	
-	
-	//DATA CLASS MAL OLOR (DISPENSABLE)
-	public String getTipo() {
-		return tipo;
+
+	public Cliente(String nombre, 
+			String numeroTelefono) {
+		super();
+		llamadas = new ArrayList<Llamada>();
+		this.nombre = nombre;
+		this.numeroTelefono = numeroTelefono;
 	}
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	
+	public Llamada registrarLlamada(Cliente destino,String telefono, int duracion) {
+		Llamada llamada = new Llamada(this,destino,telefono,duracion);
+		this.llamadas.add(llamada);
+		return llamada;
 	}
+
 	public String getNombre() {
 		return nombre;
 	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+
 	public String getNumeroTelefono() {
 		return numeroTelefono;
 	}
-	public void setNumeroTelefono(String numeroTelefono) {
-		this.numeroTelefono = numeroTelefono;
-	}
-	public String getCuit() {
-		return cuit;
-	}
-	public void setCuit(String cuit) {
-		this.cuit = cuit;
-	}
-	public String getDNI() {
-		return dni;
-	}
-	public void setDNI(String dni) {
-		this.dni = dni;
-	}
+
 }
+

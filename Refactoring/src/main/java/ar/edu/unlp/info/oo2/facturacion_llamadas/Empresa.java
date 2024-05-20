@@ -11,7 +11,7 @@ public class Empresa { //CLASE DIOS
 	static double descuentoJur = 0.15; //raro 
 	static double descuentoFis = 0;
 
-	public boolean agregarNumeroTelefono(String str //mal olor) {//mal olor
+	public boolean agregarNumeroTelefono(String str) {//mal olor nombre de parametro no se entiende
 		boolean encontre = guia.getLineas().contains(str);//Aca envidia de atributo
 		if (!encontre) { 
 			guia.getLineas().add(str);//Aca envidia de atributo
@@ -28,24 +28,13 @@ public class Empresa { //CLASE DIOS
 		return guia.obtenerNumeroLibre();
 	}
 
-	public Cliente registrarUsuario(String data, String nombre, String tipo) {
-		Cliente var = new Cliente();
-		if (tipo.equals("fisica")) { //Aca hay mal olor
-			var.setNombre(nombre);
-			String tel = this.obtenerNumeroLibre();
-			var.setTipo(tipo);
-			var.setNumeroTelefono(tel);
-			var.setDNI(data);
-		}
-		else if (tipo.equals("juridica")) { // ACa ghay mal olor
-			String tel = this.obtenerNumeroLibre();
-			var.setNombre(nombre);
-			var.setTipo(tipo);
-			var.setNumeroTelefono(tel);
-			var.setCuit(data);
-		}
-		clientes.add(var);
-		return var;
+	public Cliente registrarUsuario(String data, String nombre, Juridico tipo) {
+
+		return tipo = new Juridico(nombre,this.obtenerNumeroLibre(),data);
+	}
+	public Cliente registrarUsuario(String data, String nombre, Fisico tipo) {
+		return tipo = new Fisico(nombre,this.obtenerNumeroLibre(),data);
+		
 	}
 
 	public Llamada registrarLlamada(Cliente origen, Cliente destino, String t, int duracion) {

@@ -12,6 +12,8 @@ public class Llamada {
 		this.destino= destino;
 		this.duracion = duracion;
 	}
+	
+	
 
 	public String getTipoDeLlamada() {
 		return tipoDeLlamada;
