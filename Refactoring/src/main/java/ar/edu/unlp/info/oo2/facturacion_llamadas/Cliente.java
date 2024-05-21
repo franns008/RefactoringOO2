@@ -4,10 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract  class Cliente {
-	private List<Llamada> llamadas; // esto es public
+	private List<Llamada> llamadas; 
 	private String nombre;
 	private String numeroTelefono;
-	// NO TIENE CONSTRUCTOR, clase anemica mal olor
 
 	public Cliente(String nombre, 
 			String numeroTelefono) {
@@ -17,12 +16,11 @@ public abstract  class Cliente {
 		this.numeroTelefono = numeroTelefono;
 	}
 	
-	public Llamada registrarLlamada(Cliente destino,String telefono, int duracion) {
-		Llamada llamada = new Llamada(this,destino,telefono,duracion);
+	public Llamada registrarLlamada(Llamada llamada) {
 		this.llamadas.add(llamada);
 		return llamada;
 	}
-
+	
 	public String getNombre() {
 		return nombre;
 	}

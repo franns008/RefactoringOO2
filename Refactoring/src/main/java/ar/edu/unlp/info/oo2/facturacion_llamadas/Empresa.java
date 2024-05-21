@@ -28,19 +28,17 @@ public class Empresa { //CLASE DIOS
 		return guia.obtenerNumeroLibre();
 	}
 
-	public Cliente registrarUsuario(String data, String nombre, Juridico tipo) {
-
-		return tipo = new Juridico(nombre,this.obtenerNumeroLibre(),data);
+	public Juridico registrarUsuarioJuridico(String cuit, String nombre) {
+		return  new Juridico(nombre,this.obtenerNumeroLibre(),cuit);
 	}
-	public Cliente registrarUsuario(String data, String nombre, Fisico tipo) {
-		return tipo = new Fisico(nombre,this.obtenerNumeroLibre(),data);
-		
+	public Fisico registrarUsuarioFisico(String dni, String nombre) {
+		return new Fisico(nombre,this.obtenerNumeroLibre(),dni);	
 	}
 
 	public Llamada registrarLlamada(Cliente origen, Cliente destino, String t, int duracion) {
 		Llamada llamada = new Llamada(t, origen.getNumeroTelefono(), destino.getNumeroTelefono(), duracion);
-		llamadas.add(llamada); // envidia de atributo
-		origen.llamadas.add(llamada); // envidia de atributo
+		llamadas.add(llamada);
+		origen.registrarLlamada(llamada);
 		return llamada;
 	}
 
