@@ -28,6 +28,7 @@ public abstract  class Cliente {
 	public String getNumeroTelefono() {
 		return numeroTelefono;
 	}
-
+	
+	public abstract double getDescuento();
 }
 

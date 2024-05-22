@@ -1,24 +1,24 @@
 package ar.edu.unlp.info.oo2.facturacion_llamadas;
 
-public class Llamada {
-	private String tipoDeLlamada;
+public abstract class Llamada {
+
 	private String origen;
 	private String destino;
 	private int duracion;
-
-	public Llamada(String tipoLlamada, String origen, String destino, int duracion) {
-		this.tipoDeLlamada = tipoLlamada;
+	private static final double IVA = 0.21;
+	public Llamada(String origen, String destino, int duracion) {
 		this.origen= origen;
 		this.destino= destino;
 		this.duracion = duracion;
 	}
 	
 	
-
-	public String getTipoDeLlamada() {
-		return tipoDeLlamada;
+	public abstract double calcularPrecioLlamada();
+	
+	public double calcularIva(double precioPorSegundo) {
+		return duracion*precioPorSegundo*IVA;
 	}
-
+	
 	public String getRemitente() {
 		return destino;
 	}
@@ -31,3 +31,5 @@ public class Llamada {
 		return origen;
 	}
 }
+
+

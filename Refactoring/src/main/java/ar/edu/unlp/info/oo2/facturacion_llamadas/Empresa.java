@@ -8,8 +8,8 @@ public class Empresa { //CLASE DIOS
 	private List<Llamada> llamadas = new ArrayList<Llamada>();
 	private GestorNumerosDisponibles guia = new GestorNumerosDisponibles();
 
-	static double descuentoJur = 0.15; //raro 
-	static double descuentoFis = 0;
+ //raro 
+	
 
 	public boolean agregarNumeroTelefono(String str) {//mal olor nombre de parametro no se entiende
 		boolean encontre = guia.getLineas().contains(str);//Aca envidia de atributo
@@ -35,31 +35,25 @@ public class Empresa { //CLASE DIOS
 		return new Fisico(nombre,this.obtenerNumeroLibre(),dni);	
 	}
 
-	public Llamada registrarLlamada(Cliente origen, Cliente destino, String t, int duracion) {
-		Llamada llamada = new Llamada(t, origen.getNumeroTelefono(), destino.getNumeroTelefono(), duracion);
+	public Internacional registrarLlamadaInternacional(Cliente origen, Cliente destino, int duracion) {
+		Internacional llamada = new Internacional (origen.getNumeroTelefono(), destino.getNumeroTelefono(), duracion);
 		llamadas.add(llamada);
 		origen.registrarLlamada(llamada);
 		return llamada;
 	}
+	
+	public Nacional registrarLlamadaNacional(Cliente origen, Cliente destino, int duracion) {
+		Nacional llamada = new Nacional (origen.getNumeroTelefono(), destino.getNumeroTelefono(), duracion);
+		origen.registrarLlamada(llamada);
+		return llamada;
+	}
 
-	public double calcularMontoTotalLlamadas(Cliente cliente) { //POR CADA LLAMADA PREGUNTA EL TIPO Y SEGUN
-		//EL TIPO ASIGNA VALOR. ENVIDIA DE ATRIBUTOS
+	public double calcularMontoTotalLlamadas(Cliente cliente) { 
 		double c = 0; // temporary field 
-		for (Llamada l : cliente.llamadas) { // malo olor, se puede usar un stream  Y METODO LARGO
+		for (Llamada l : cliente.llamadas) {
 			double auxc = 0;
-			if (l.getTipoDeLlamada() == "nacional") { // MAL OLOR: condicionales 
-				// el precio es de 3 pesos por segundo más IVA sin adicional por establecer la llamada
-				auxc += l.getDuracion() * 3 + (l.getDuracion() * 3 * 0.21);// primitive obsession mal olor
-			} else if (l.getTipoDeLlamada() == "internacional") {
-				// el precio es de 150 pesos por segundo más IVA más 50 pesos por establecer la llamada
-				auxc += l.getDuracion() * 150 + (l.getDuracion() * 150 * 0.21) + 50;
-			}
-
-			if (cliente.getTipo() == "fisica") {
-				auxc -= auxc*descuentoFis;
-			} else if(cliente.getTipo() == "juridica") {
-				auxc -= auxc*descuentoJur;
-			}
+			auxc += l.calcularPrecioLlamada();
+			auxc -=  auxc*cliente.getDescuento();
 			c += auxc;
 		}
 		return c;
