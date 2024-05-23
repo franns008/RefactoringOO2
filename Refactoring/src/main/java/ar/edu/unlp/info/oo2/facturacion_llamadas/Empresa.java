@@ -4,19 +4,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Empresa { 
-	private List<Cliente> clientes = new ArrayList<Cliente>();
-	private GestorNumerosDisponibles guia = new GestorNumerosDisponibles();	
+	private List<Cliente> clientes ;
+	private GestorNumerosDisponibles guia ;	
 
 	
+	public Empresa() {
+		super();
+		this.clientes = new ArrayList<Cliente>();
+		this.guia = new GestorNumerosDisponibles();
+	}
+
 	public String obtenerNumeroLibre() {
 		return guia.obtenerNumeroLibre();
 	}
-
+	
+	public void agregarNumeroTelefono(String numero) {
+		this.guia.agregarNumeroTelefono(numero);
+	}
+	
 	public Juridico registrarUsuarioJuridico(String cuit, String nombre) {
-		return  new Juridico(nombre,this.obtenerNumeroLibre(),cuit);
+		Juridico cliente = new Juridico(nombre,this.obtenerNumeroLibre(),cuit);
+		this.clientes.add(cliente);
+		return cliente;
+		
 	}
 	public Fisico registrarUsuarioFisico(String dni, String nombre) {
-		return new Fisico(nombre,this.obtenerNumeroLibre(),dni);	
+		Fisico cliente = new Fisico(nombre,this.obtenerNumeroLibre(),dni);
+		this.clientes.add(cliente);
+		return cliente;
 	}
 
 	public Internacional registrarLlamadaInternacional(Cliente origen, Cliente destino, int duracion) {

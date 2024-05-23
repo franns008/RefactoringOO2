@@ -25,12 +25,12 @@ public class GestorNumerosDisponibles {
 		return lineasTelefono;
 	}
 	
-	public boolean numeroTelefonoDisponible(String numeroTelefono) {
+	public boolean numeroTelefonoOcupado(String numeroTelefono) {
 		return this.getLineas().contains(numeroTelefono);
 	}
 	
 	public boolean agregarNumeroTelefono(String numeroTelefono) {
-		if (this.numeroTelefonoDisponible(numeroTelefono)) { 
+		if (!this.numeroTelefonoOcupado(numeroTelefono)) { 
 			this.getLineas().add(numeroTelefono);
 			return true;
 		}else {
