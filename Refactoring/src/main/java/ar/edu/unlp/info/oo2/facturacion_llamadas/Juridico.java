@@ -7,7 +7,7 @@ public class Juridico extends Cliente {
 		super(nombre, numeroTelefono);
 		this.cuit = cuit;
 	}
-
+	
 	public String getCuit() {
 		return cuit;
 	}
@@ -16,3 +16,6 @@ public class Juridico extends Cliente {
 		return this.descuento;
 	}
 }
+
+
+

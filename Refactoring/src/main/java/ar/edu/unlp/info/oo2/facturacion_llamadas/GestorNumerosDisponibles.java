@@ -6,36 +6,41 @@ import java.util.Random;
 import java.util.SortedSet;
 
 public class GestorNumerosDisponibles {
-	private SortedSet<String> lineas = new TreeSet<String>(); //mal nombre, bad smell 
-	private String tipoGenerador = "ultimo";
+	private SortedSet<String> lineasTelefonos;
+	private GeneradorStrategy tipoGenerador;
+		 
+	public GestorNumerosDisponibles() {
+		super();
+		this.lineasTelefonos = new TreeSet<String>();
+		this.tipoGenerador = new ConcreteStrategyUltimo();
+	}
 
-	//clase anemica
-	 
 	public SortedSet<String> getLineas() {
-		return lineas;
+		return lineasTelefonos;
 	}
 
 	public String obtenerNumeroLibre() {
-		String linea;
-		switch (tipoGenerador) { //SWITCH STATEMENTS  MAL OLOR
-			case "ultimo":
-				linea = lineas.last();
-				lineas.remove(linea);
-				return linea;
-			case "primero":
-				linea = lineas.first();
-				lineas.remove(linea);
-				return linea;
-			case "random":
-				linea = new ArrayList<String>(lineas)
-						.get(new Random().nextInt(lineas.size()));
-				lineas.remove(linea);
-				return linea;
+		String lineasTelefono = this.tipoGenerador.obtenerNumeroLibre(lineasTelefonos);
+		this.lineasTelefonos.remove(lineasTelefono);
+		return lineasTelefono;
+	}
+	
+	public boolean numeroTelefonoDisponible(String numeroTelefono) {
+		return this.getLineas().contains(numeroTelefono);
+	}
+	
+	public boolean agregarNumeroTelefono(String numeroTelefono) {
+		if (this.numeroTelefonoDisponible(numeroTelefono)) { 
+			this.getLineas().add(numeroTelefono);
+			return true;
+		}else {
+			return false;
 		}
-		return null; //raro, null pattern
 	}
 
-	public void cambiarTipoGenerador(String valor) {
-		this.tipoGenerador = valor;
+	public void cambiarTipoGenerador(GeneradorStrategy tipoGenerador) {
+		this.tipoGenerador = tipoGenerador;
 	}
 }
+
+

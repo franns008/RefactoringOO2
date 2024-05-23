@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract  class Cliente {
-	private List<Llamada> llamadas; 
+	protected List<Llamada> llamadas; 
 	private String nombre;
 	private String numeroTelefono;
 
@@ -14,6 +14,13 @@ public abstract  class Cliente {
 		llamadas = new ArrayList<Llamada>();
 		this.nombre = nombre;
 		this.numeroTelefono = numeroTelefono;
+	}
+	
+	public double calcularMontoLlamadas() {
+		return this.llamadas.stream()
+				.mapToDouble(llamada -> llamada.calcularPrecioLlamada()
+							-llamada.calcularPrecioLlamada()*this.getDescuento())
+				.sum();
 	}
 	
 	public Llamada registrarLlamada(Llamada llamada) {

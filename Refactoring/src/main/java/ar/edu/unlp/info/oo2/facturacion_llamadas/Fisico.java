@@ -7,8 +7,8 @@ public class Fisico  extends Cliente{
 	public Fisico(String nombre, String numeroTelefono, String dni) {
 		super( nombre, numeroTelefono);
 		this.dni = dni;
-	}
-
+	}	
+	
 	public String getDni() {
 		return dni;
 	}
